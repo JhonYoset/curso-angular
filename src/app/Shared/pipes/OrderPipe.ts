@@ -12,11 +12,11 @@ export class OrderByPipe implements PipeTransform {
     const sortedArray = [...array];
 
     sortedArray.sort((a, b) => {
-      // Obtener el valor del campo, soportando propiedades anidadas (ej: 'artist.name')
+      // Obtener el valor del campo'artist.name'
       const valueA = this.getNestedProperty(a, field);
       const valueB = this.getNestedProperty(b, field);
 
-      // Manejar valores nulos o indefinidos
+      // valores nulos o indefinidos
       if (valueA == null && valueB == null) return 0;
       if (valueA == null) return order === 'asc' ? 1 : -1;
       if (valueB == null) return order === 'asc' ? -1 : 1;
@@ -29,24 +29,20 @@ export class OrderByPipe implements PipeTransform {
         return order === 'asc' ? comparison : -comparison;
       }
 
-      // Comparar números o fechas
+      /* Comparar números o fechas
       if (valueA < valueB) {
         return order === 'asc' ? -1 : 1;
       }
       if (valueA > valueB) {
         return order === 'asc' ? 1 : -1;
       }
-
+*/
       return 0;
     });
 
     return sortedArray;
   }
 
-  /**
-   * Obtiene el valor de una propiedad anidada usando notación de punto
-   * Ej: 'artist.name' obtiene obj.artist.name
-   */
   private getNestedProperty(obj: any, path: string): any {
     return path.split('.').reduce((current, prop) => current?.[prop], obj);
   }

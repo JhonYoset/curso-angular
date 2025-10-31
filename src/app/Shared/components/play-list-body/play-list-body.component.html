@@ -19,7 +19,7 @@
     </li>
   </ul>
 
-  <!-- Aquí aplicas el pipe para ordenar -->
+  <!-- pipe para ordenar -->
   <ul class="play-list-rows" *ngFor="let track of tracks | orderBy: sortField : sortOrder">
     <li class="track-name">
       <ng-container *ngTemplateOutlet="coverSection;context:{track:track}"></ng-container>
