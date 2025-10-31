@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TracksService } from '@modules/tracks/services/tracks.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,9 @@ export class SidebarComponent implements OnInit {
   } = { defaultOptions: [], accessLink: [] }
 
   customOptions: Array<any> = [];
+  constructor(private tracksService: TracksService) {
 
+  }
   ngOnInit() {
     this.mainMenu.defaultOptions = [
       {
@@ -63,5 +66,17 @@ export class SidebarComponent implements OnInit {
         router: ['/']
       }
     ]
+
+    const TracksElectronic$ = this.tracksService.dataTracksElectronics$.subscribe({
+      next: (data)=>{
+        data.forEach(track => {
+          this.customOptions.push({
+            name: track.name,
+            router:['/','tracks', track._id]
+          })
+
+        });
+      }
+    })
   }
 }

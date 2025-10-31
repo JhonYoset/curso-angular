@@ -5,6 +5,10 @@ import { MediaPlayerComponent } from './components/media-player/media-player.com
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { SectionGenericComponent } from './components/section-generic/section-generic.component';
 import { CardPlayerComponent } from './components/card-player/card-player.component';
+import { RouterModule } from '@angular/router';
+import { PlayListBodyComponent } from './components/play-list-body/play-list-body.component';
+import { PlayListHeaderComponent } from './components/play-list-header/play-list-header.component';
+import { OrderByPipe } from './pipes/OrderPipe';
 
 
 
@@ -14,16 +18,24 @@ import { CardPlayerComponent } from './components/card-player/card-player.compon
     MediaPlayerComponent,
     HeaderUserComponent,
     SectionGenericComponent,
-    CardPlayerComponent
+    CardPlayerComponent,
+    PlayListBodyComponent,
+    PlayListHeaderComponent,
+    OrderByPipe
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     SidebarComponent,
     MediaPlayerComponent,
     HeaderUserComponent,
-    SectionGenericComponent
+    SectionGenericComponent,
+    CardPlayerComponent,
+    PlayListBodyComponent,
+    PlayListHeaderComponent,
+    OrderByPipe
   ]
 })
 export class SharedModule { }

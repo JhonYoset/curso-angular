@@ -4,18 +4,21 @@ import { HomePageComponent } from './modules/home/pages/home-page/home-page.comp
 
 const routes: Routes = [
   {
-    path: 'auth',
-    loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
-  },
+      path: 'auth', // http://localhost:4200/auth
+      loadChildren: () =>
+        import('./modules/auth/auth.module').then((m) => m.AuthModule),
+    },
   {
-    path: '', // https://localhost:4200/
+    path: '', // http://localhost:4200/
     component: HomePageComponent,
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
-  }
+    loadChildren: () =>
+      import('./modules/home/home.module').then((m) => m.HomeModule),
+  },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
