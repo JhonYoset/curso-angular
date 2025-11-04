@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { PlayListBodyComponent } from './components/play-list-body/play-list-body.component';
 import { PlayListHeaderComponent } from './components/play-list-header/play-list-header.component';
 import { OrderByPipe } from './pipes/OrderPipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImgBrokenDirective } from './directives/img-broken.directive';
 
 
@@ -28,7 +28,8 @@ import { ImgBrokenDirective } from './directives/img-broken.directive';
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     SidebarComponent,
@@ -40,6 +41,7 @@ import { ImgBrokenDirective } from './directives/img-broken.directive';
     PlayListHeaderComponent,
     OrderByPipe,
     FormsModule,
+    ReactiveFormsModule,
     ImgBrokenDirective
   ]
 })

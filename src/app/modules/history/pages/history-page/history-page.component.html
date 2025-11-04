@@ -1,36 +1,14 @@
-<form (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" name="name" [(ngModel)]="user.name" required #name="ngModel">
-    <div *ngIf="name.invalid && (name.dirty || name.touched)">
-      <div *ngIf="name.errors?.['required']">
-        El nombre es requerido.
-      </div>
-    </div>
-  </div>
-
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" [(ngModel)]="user.email" required email #email="ngModel">
-    <div *ngIf="email.invalid && (email.dirty || email.touched)">
-      <div *ngIf="email.errors?.['required']">
-        El email es requerido.
-      </div>
-      <div *ngIf="email.errors?.['email']">
-        El email no es válido.
-      </div>
-    </div>
-  </div>
-
-  <div>
-    <label for="age">Edad:</label>
-    <input type="number" id="age" name="age" [(ngModel)]="user.age" min="18" #age="ngModel">
-    <div *ngIf="age.invalid && (age.dirty || age.touched)">
-      <div *ngIf="age.errors?.['min']">
-        Debes ser mayor de 18 años.
-      </div>
-    </div>
-  </div>
-
-  <button type="submit" [disabled]="!name.valid || !email.valid || !age.valid">Enviar</button>
+<form [formGroup]="formDatos">
+  <label for="name">Nombre:</label>
+  <input type="text" name="name" placeholder="Ingrese su nombre" formControlName="nombres" />
+  <br>
+  <label for="email">Correo Electrónico:</label>
+  <input type="text" name="email" placeholder="Ingrese su correo electrónico" formControlName="email" />
+  <hr>
+  <button type="submit" [disabled]="formDatos.invalid">Enviar</button>
 </form>
+
+<div>
+  {{ formDatos.valid}}
+  {{ formDatos.errors | json}}
+</div>

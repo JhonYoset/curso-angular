@@ -1,26 +1,22 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-history-page',
   templateUrl: './history-page.component.html',
-  styleUrls: ['./history-page.component.css']
+  styleUrls: ['./history-page.component.css'],
 })
 export class HistoryPageComponent {
-  usuario: string = '';
-  user={
-    name:'',
-    email: '',
-    age:null
-  }
+  formDatos= new FormGroup({
+    nombres :new FormControl('', Validators.required),
+    email: new FormControl('',[Validators.required, Validators.email])
 
-  constructor(private route: ActivatedRoute){}
+  })
+  constructor() {}
 
   ngOnInit(): void {
-    this.usuario=this.route.snapshot.paramMap.get('texto')||'';
-    console.log(this.usuario)
   }
-  onSubmit(){
-    console.log(this.user);
+  onSubmit() {
   }
 }
