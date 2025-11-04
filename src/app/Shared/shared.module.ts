@@ -28,8 +28,7 @@ import { ImgBrokenDirective } from './directives/img-broken.directive';
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule,
-    ImgBrokenDirective
+    FormsModule
   ],
   exports: [
     SidebarComponent,
