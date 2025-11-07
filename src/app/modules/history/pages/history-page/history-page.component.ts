@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HistoryPageComponent {
   formDatos= new FormGroup({
-    nombres :new FormControl('', Validators.required),
+    nombres:new FormControl('', Validators.required),
     email: new FormControl('',[Validators.required, Validators.email])
 
   })
