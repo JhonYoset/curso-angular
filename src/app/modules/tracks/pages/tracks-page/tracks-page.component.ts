@@ -8,28 +8,21 @@ import { TracksService } from '@modules/tracks/services/tracks.service';
   styleUrls: ['./tracks-page.component.css'],
 })
 export class TracksPageComponent implements OnInit {
-  TracksBetter: Array<TrackModel> = [];
-  TracksElectronic: Array<TrackModel> = [];
-  observerList$= Array<Subscription>();
+  tracksBetter: Array<TrackModel> = [];
+  tracksElectronic: Array<TrackModel> = [];
 
   constructor(private tracksService: TracksService){
 
   }
   ngOnInit(): void {
-    const observerBetter$ = this.tracksService.dataTracksBetter$.subscribe({
-      next:(data)=>{
-        this.TracksBetter= data;
-      }
+    this.tracksService.getAllTracks$().subscribe(tracks=>{
+      console.log(tracks);
+      this.tracksBetter=tracks;
     });
-    this.observerList$.push(observerBetter$);
-    const observerElectronics$ = this.tracksService.dataTracksElectronics$.subscribe({
-      next:(data)=>{
-        this.TracksElectronic = data;
-      }
-    });
-    this.observerList$.push(observerElectronics$);
+    this.tracksService.getAllElectronics$().subscribe(tracks=>{
+      this.tracksElectronic=tracks
+    })
   }
   ngOnDestroy():void{
-    this.observerList$.forEach((observer$)=> observer$.unsubscribe());
   }
 }

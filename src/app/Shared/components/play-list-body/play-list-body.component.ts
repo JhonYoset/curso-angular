@@ -1,6 +1,7 @@
 // play-list-body.component.ts
 import { Component, Input } from '@angular/core';
 import { TrackModel } from '@core/models/track.model';
+import { TracksService } from '@modules/tracks/services/tracks.service';
 
 @Component({
   selector: 'app-play-list-body',
@@ -8,11 +9,19 @@ import { TrackModel } from '@core/models/track.model';
   styleUrls: ['./play-list-body.component.css'],
 })
 export class PlayListBodyComponent {
-  @Input() tracks: TrackModel[] = [];
+  tracks: Array<TrackModel> =[];
 
   sortField: string = 'name';
   sortOrder: 'asc' | 'desc' = 'asc';
 
+  constructor(private trackService: TracksService){}
+  ngOnInit(): void {
+    const tracks$ = this.trackService
+      .getAllElectronics$()
+      .subscribe((tracks) => {
+        this.tracks = tracks;
+      });
+  }
   sortBy(field: string) {
     if (this.sortField === field) {
       // Si se hace clic en la misma columna, invertir el orden

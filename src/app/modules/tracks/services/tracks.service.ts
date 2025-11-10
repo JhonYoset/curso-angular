@@ -1,19 +1,50 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TrackModel } from '@core/models/track.model';
-import { Observable, of } from 'rxjs';
-import * as dataRow from '../../../data/tracks.json'
+import { map, mergeMap, Observable } from 'rxjs';
+import { enviroment } from 'src/enviroment/enviroment';
+import { TracksModule } from '../tracks.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TracksService {
 
-  dataTracksBetter$ : Observable <TrackModel[]> = of([]);
-  dataTracksElectronics$ : Observable <TrackModel[]> = of([]);
+  private readonly URL = enviroment.api;
 
-  constructor(){
-    const{data}: any = (dataRow as any).default;
-    this.dataTracksBetter$ = of(data);
-    this.dataTracksElectronics$ = of(data);
+  constructor(private httpClient: HttpClient) { }
+
+  getTrack() : TrackModel []{
+    return new Array <TrackModel>();
   }
+
+  private skipById(tracks: TrackModel[], idToSkip: number): Promise<TrackModel[]> {
+    return new Promise((resolve) => {
+      const filteredTracks = tracks.filter(track => track._id !== idToSkip);
+      resolve(filteredTracks);
+    });
+  }
+
+  getAllTracks$() : Observable<TrackModel[]> {
+    return this.httpClient.get<any>(`${this.URL}/tracks`).pipe(
+      map((response) => {
+        return response.data;
+      })
+    );
+  }
+
+  getAllElectronics$() : Observable<TrackModel[]> {
+    return this.httpClient.get<any>(`${this.URL}/tracks`).pipe(
+      // map((response) => {
+      //   return response.data.reverse();
+      // }),
+      // map((dataInvertida) => {
+      //   return dataInvertida.filter((track: TrackModel) => {
+      //     return track._id !== 1;
+      //   });
+      // })
+      mergeMap(({data}) => this.skipById(data, 5))
+    );
+  }
+
 }

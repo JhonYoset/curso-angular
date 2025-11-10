@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TracksService } from '@modules/tracks/services/tracks.service';
+import { DataServiceService } from '@shared/services/data-service.service';
+import { MessageService } from '@shared/services/message.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,7 +17,15 @@ export class SidebarComponent implements OnInit {
   } = { defaultOptions: [], accessLink: [] }
 
   customOptions: Array<any> = [];
-  constructor(private tracksService: TracksService) {
+
+  currentData$!: Observable <String>;
+  currentMessage$!: Observable<String>;
+  constructor(private tracksService: TracksService,
+    private dataService: DataServiceService,
+    private messageService: MessageService
+  ) {
+      this.currentData$= this.dataService.currentData;
+      this.currentMessage$= this.messageService.message$;
 
   }
   ngOnInit() {
@@ -66,17 +77,5 @@ export class SidebarComponent implements OnInit {
         router: ['/']
       }
     ]
-
-    const TracksElectronic$ = this.tracksService.dataTracksElectronics$.subscribe({
-      next: (data)=>{
-        data.forEach(track => {
-          this.customOptions.push({
-            name: track.name,
-            router:['/','tracks', track._id]
-          })
-
-        });
-      }
-    })
   }
 }

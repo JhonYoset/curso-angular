@@ -1,14 +1,2 @@
-<form [formGroup]="formDatos">
-  <label for="name">Nombre:</label>
-  <input type="text" name="name" placeholder="Ingrese su nombre" formControlName="nombres" />
-  <br>
-  <label for="email">Correo Electrónico:</label>
-  <input type="text" name="email" placeholder="Ingrese su correo electrónico" formControlName="email" />
-  <hr>
-  <button type="submit" [disabled]="formDatos.invalid">Enviar</button>
-</form>
-
-<div>
-  {{ formDatos.valid}}
-  {{ formDatos.errors | json}}
-</div>
+<button (click)="updateData()">Actualizar Datos</button>
+<button (click)="updateMessage()">Actualizar Datos RXJS</button>

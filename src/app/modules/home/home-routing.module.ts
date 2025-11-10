@@ -4,10 +4,6 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 
 const routes: Routes = [
   {
-    path: '', // Ruta por defecto para el módulo home
-    component: HomePageComponent
-  },
-  {
     path: 'tracks',
     loadChildren: () => import('../tracks/tracks.module').then(m => m.TracksModule)
   },
@@ -18,7 +14,11 @@ const routes: Routes = [
   {
     path: 'history',
     loadChildren: () => import('../history/history.module').then(m => m.HistoryModule)
+  },{
+    path: '**',
+    redirectTo: '/tracks'
   }
+
 ];
 
 @NgModule({

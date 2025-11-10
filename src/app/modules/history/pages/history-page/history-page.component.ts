@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { DataServiceService } from '@shared/services/data-service.service';
+import { MessageService } from '@shared/services/message.service';
 
 @Component({
   selector: 'app-history-page',
@@ -8,15 +10,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./history-page.component.css'],
 })
 export class HistoryPageComponent {
-  formDatos= new FormGroup({
-    nombres:new FormControl('', Validators.required),
-    email: new FormControl('',[Validators.required, Validators.email])
 
-  })
-  constructor() {}
+  constructor(private dataService: DataServiceService, private messageService: MessageService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void{}
+
+  updateData(){
+    this.dataService.updateData("Nuevo dato desde HistoryPageComponent")
   }
-  onSubmit() {
+  updateMessage(){
+    this.messageService.sendMessage('Nuevo mensaje desde HistoryPageComponent');
   }
 }
