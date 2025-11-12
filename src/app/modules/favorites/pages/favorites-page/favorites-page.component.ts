@@ -23,5 +23,6 @@ export class FavoritesPageComponent implements OnInit{
   }
   ngOnDestroy(): void{
     this.subscription.unsubscribe();
+    this.messageSubscription.unsubscribe();
   }
 }

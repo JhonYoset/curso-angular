@@ -2,15 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TrackModel } from '@core/models/track.model';
 import { map, mergeMap, Observable } from 'rxjs';
-import { enviroment } from 'src/enviroment/enviroment';
 import { TracksModule } from '../tracks.module';
+import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TracksService {
 
-  private readonly URL = enviroment.api;
+  private readonly URL = environment.api;
 
   constructor(private httpClient: HttpClient) { }
 
