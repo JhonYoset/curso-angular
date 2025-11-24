@@ -30,7 +30,7 @@ export class AuthPageComponent implements OnInit {
       .subscribe({
         next: (response) =>{
           console.log('Login successful', response);
-          this.router.navigate(['/favorities']);
+          this.router.navigate(['/']),
           this.errorSession = false;
         },
         error:(error)=>{
