@@ -1,2 +1,4 @@
-<button (click)="updateData()">Actualizar Datos</button>
-<button (click)="updateMessage()">Actualizar Datos RXJS</button>
+<div class="history-page">
+  <app-search (callbackData)="search($event)"></app-search>
+  <app-play-list-body [tracks]="tracks | async"></app-play-list-body>
+</div>

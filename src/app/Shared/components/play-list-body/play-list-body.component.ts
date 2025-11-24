@@ -9,18 +9,18 @@ import { TracksService } from '@modules/tracks/services/tracks.service';
   styleUrls: ['./play-list-body.component.css'],
 })
 export class PlayListBodyComponent {
-  tracks: Array<TrackModel> =[];
+  @Input() tracks: Array<TrackModel> =[];
 
   sortField: string = 'name';
   sortOrder: 'asc' | 'desc' = 'asc';
 
   constructor(private trackService: TracksService){}
   ngOnInit(): void {
-    const tracks$ = this.trackService
+/*const tracks$ = this.trackService
       .getAllElectronics$()
       .subscribe((tracks) => {
         this.tracks = tracks;
-      });
+      });*/
   }
   sortBy(field: string) {
     if (this.sortField === field) {

@@ -1,52 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-page',
   templateUrl: './auth-page.component.html',
   styleUrls: ['./auth-page.component.css'],
 })
-export class AuthPageComponent {
-  loginForm: FormGroup;
-  usuario: string = '';
-
-  constructor(private authService: AuthService, private fb: FormBuilder) {
-    console.log('AuthComponent created');
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+export class AuthPageComponent implements OnInit {
+  formLogin: FormGroup = new FormGroup({});
+  errorSession: boolean= false;
+  constructor(private authService: AuthService, private router: Router) {
+    console.log('AuthPageComponent created');
+  }
+  ngOnInit(): void {
+    this.formLogin = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
-  }
-  ngOnInit(): void {}
-
-  get email() {
-    return this.loginForm.get('email');
-  }
-  get password() {
-    return this.loginForm.get('password');
   }
 
   sendLogin() {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      this.authService.sendCredentials(email, password);
-    } else {
-      this.markFormGroupTouched();
+    if (this.formLogin.valid) {
+      this.authService.sendCredentials(this.formLogin.value.email,this.formLogin.value.password)
+      .subscribe({
+        next: (response) =>{
+          console.log('Login successful', response);
+          this.router.navigate(['/favorities']);
+          this.errorSession = false;
+        },
+        error:(error)=>{
+          console.error(' Login failed ',error);
+          this.errorSession=true;
+        }
+      }
+    );
+  }else {
+      console.log('Form is invalid');
+      }
     }
   }
-
-  onSubmit() {
-    console.log('Form values:', this.loginForm.value);
-    this.sendLogin();
-  }
-
-  private markFormGroupTouched() {
-    Object.keys(this.loginForm.controls).forEach((key) => {
-      const control = this.loginForm.get(key);
-      control?.markAsTouched();
-    });
-  }
-}
-
-

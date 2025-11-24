@@ -34,15 +34,7 @@ export class TracksService {
   }
 
   getAllElectronics$() : Observable<TrackModel[]> {
-    return this.httpClient.get<any>(`${this.URL}/tracks`).pipe(
-      // map((response) => {
-      //   return response.data.reverse();
-      // }),
-      // map((dataInvertida) => {
-      //   return dataInvertida.filter((track: TrackModel) => {
-      //     return track._id !== 1;
-      //   });
-      // })
+    return this.httpClient.get<any>(`${this.URL}/tracks2`).pipe(
       mergeMap(({data}) => this.skipById(data, 5))
     );
   }
