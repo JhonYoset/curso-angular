@@ -1,27 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { DataServiceService } from '@shared/services/data-service.service';
-import { MessageService } from '@shared/services/message.service';
-
-import { Observable, of } from 'rxjs';
-import { SearchService } from '../../services/search.service';
+import { Component } from '@angular/core';
 import { TrackModel } from '@core/models/track.model';
+import { SearchService } from '@modules/history/services/search.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-history-page',
   templateUrl: './history-page.component.html',
-  styleUrls: ['./history-page.component.css'],
+  styleUrls: ['./history-page.component.css']
 })
-export class HistoryPageComponent implements OnInit {
+export class HistoryPageComponent {
+
+  // tracks: TrackModel[] = [];
   tracks: Observable<any> = of([]);
 
-  constructor(private searchService: SearchService) {}
+  constructor(private searchService: SearchService) {
 
-  ngOnInit(): void {}
+  }
+
+  ngOnInit(): void {
+
+  }
 
   search(term: string) {
-    this.tracks= this.searchService
-      .searchTracks(term)
+    // this.searchService.searchTracks(term).subscribe((response) => {
+    //   this.tracks = response.data;
+    //   console.log(this.tracks);
+    // });
+    this.tracks = this.searchService.searchTracks(term);
   }
+
 }

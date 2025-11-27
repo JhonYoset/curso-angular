@@ -5,11 +5,14 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DataServiceService {
-  private data = new BehaviorSubject<string>('Hola');
-  currentData=this.data.asObservable();
+
+  private data = new BehaviorSubject<String>('Hola');
+  currentData = this.data.asObservable();
+
   constructor() { }
 
-  updateData(newData:string){
+  updateData(newData : string) {
     this.data.next(newData);
   }
+
 }

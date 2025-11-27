@@ -8,16 +8,17 @@ import { MediaService } from '../../services/media.service';
   styleUrls: ['./card-player.component.css']
 })
 export class CardPlayerComponent {
-  @Input()mode: 'small' |'big'='big';
+  @Input() mode: 'small' | 'big' = 'big';
   @Input() track!: TrackModel;
 
-  constructor(private mediaService:MediaService){
+  constructor(private mediaService: MediaService) { }
 
+  ngOnInit() {
   }
-  ngOnInit(){
-    console.log(this.track);
-  }
-  sendTrack(track:TrackModel){
+
+  sendTrack(track: TrackModel) {
     this.mediaService.callback.emit(track);
+    this.mediaService.trackInfo$.next(track);
+    console.log('Track sent:', track);
   }
 }

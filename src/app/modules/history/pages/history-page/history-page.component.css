@@ -1,3 +1,7 @@
-.ng-untouched .ng-invalid{
-  border:1px solid #ffff;
+/* input.ng-untouched.ng-invalid{
+  border: 1px solid #ff0000;
+} */
+
+.history-page {
+  padding: 0.65rem;
 }

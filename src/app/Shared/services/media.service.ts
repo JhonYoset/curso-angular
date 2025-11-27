@@ -1,45 +1,130 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, Subject, Subscriber } from 'rxjs';
+import { TrackModel } from '@core/models/track.model';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaService {
+
   callback: EventEmitter<any> = new EventEmitter<any>();
   observable$: Observable<any> = new Observable<any>();
-  subject$: Subject<any> = new Subject<any>();
+  subject$: Subject<any> = new Subject<any>(); //No requiere un valor inicial
+  behaviorSubject$: BehaviorSubject<any> = new BehaviorSubject<any>(null); //Solicita un valor inicial
+
+  // Reproduccion de cancion
+  trackInfo$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public audio!: HTMLAudioElement;
+  public timeElapsed$: BehaviorSubject<string> = new BehaviorSubject<string>('00:00');
+  public timeRemaining$: BehaviorSubject<string> = new BehaviorSubject<string>('-00:00');
+  public playStatus$: BehaviorSubject<string> = new BehaviorSubject<string>('pause');
+  public playerPercentage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
   constructor() {
-    this.observable$= new Observable<any>
-    ((subscriber)=>{
-        //subscriber.next('Media Service Observable Initiliazed');
-        //subscriber.next('Playing some media...');
-        //subscriber.next('Media Playback in progress...');
-        //subscriber.error('this is a simulated error from media service Observable');
-        //subscriber.complete();
-        //subscriber.next('This will not be sent because the observable is completed.');
+    this.audio = new Audio();
+    this.trackInfo$.subscribe(
+      track => {
+        if (track) {
+          this.setAudio(track);
+          console.log("Playing track: ", track);
+        }
+      }
+    );
 
-         //});
-        setTimeout(() =>
-          this.subject$.next( 'MediaService Subject initialized'
+    this.listenAllEvents();
+  }
 
-          ) ,3000);
-        setTimeout(() => {
-          this.subject$.next( 'Playing some media via Subject... ' ) ;
-        },5000);
-        setTimeout(() => {
-          this.subject$.next( 'Media Playback in progress via subject... ' ) ;
-        },7000);
+  private listenAllEvents(): void {
+    this.audio.addEventListener('timeupdate', this.calculateTime, false);
+    this.audio.addEventListener('ended', this.setPlayerStatus, false);
+    this.audio.addEventListener('play', this.setPlayerStatus, false);
+    this.audio.addEventListener('playing', this.setPlayerStatus, false);
+    this.audio.addEventListener('pause', this.setPlayerStatus, false);
+    // this.audio.addEventListener('timeupdate',
+    //   () => {
+    //     const currentTime = this.audio.currentTime;
+    //     const duration = this.audio.duration;
+    //     console.log(`currentTime: ${currentTime}, duration: ${duration}`);
+    //   }
+    //   , false);
+  }
+  private setPercetage(currentTime: number, duration: number): void {
+      const percetage = (currentTime / duration) * 100;
+      this.playerPercentage$.next(percetage);
+    }
+  private setPlayerStatus = (state: any) => {
+      console.log("Audio Event: ", state);
+      switch (state.type) {
+        case 'play':
+          this.playStatus$.next('play');
+          break;
+        case 'playing':
+          this.playStatus$.next('playing');
+          break;
+        case 'ended':
+          this.playStatus$.next('ended');
+          break;
+        default:
+          this.playStatus$.next('pause');
+          break;
+      }
+      this.listenAllEvents();
+    }
 
-        this.subject$.error('this is a simulated error from MediaService  Subject.');
+  private calculateTime=()=> {
+    const { currentTime, duration } = this.audio;
+    //console.log(`currentTime: ${currentTime}, duration: ${duration}`);
+    this.setTimeElapsed(currentTime);
+    this.setTimeRemaining(currentTime, duration);
+    this.setPercetage(currentTime, duration);
+  }
+
+  // Current Time:
+  private setTimeElapsed(currentTime: number): void {
+    //console.log(`Time Elapsed: ${this.formatTime(currentTime)}`);
+    const displayTime = this.formatTime(currentTime);
+
+    this.timeElapsed$.next(displayTime);
+  }
+
+  // Remaining Time:
+  private setTimeRemaining(currentTime: number, duration: number): void {
+    const timeLeft = duration - currentTime;
+
+    //console.log(`Remaining time: -${this.formatTime(timeLeft)}`);
+    const displayFormat = `-${this.formatTime(timeLeft)}`;
+
+    this.timeRemaining$.next(displayFormat);
+  }
+
+  // Formatter for time
+  private formatTime(currentTime: number): string {
+    const minutes = Math.floor(currentTime / 60 % 60);
+    const seconds = Math.floor(currentTime % 60);
+
+    const displayMinutes = minutes < 10 ? '0'+minutes : minutes;
+    const displaySeconds = seconds < 10 ? '0'+ seconds : seconds;
+
+    return `${displayMinutes}:${displaySeconds}`;
+  }
+  private setAudio(track: TrackModel): void {
+    this.audio.src = track.url;
+    this.audio.play();
+  }
+
+  public togglePlayer(): void {
+    if (this.audio.paused) {
+      this.audio.play();
+    } else {
+      this.audio.pause();
+    }
+  }
 
 
-        this.subject$.next( 'MediaService Subject initialized' ) ;
-        this.subject$.next( 'Playing sone media via Subject... ' ) ;
-        this.subject$.next( 'Media playback in progress via Subject. ' ) ;
-        this.subject$.error( 'This is a sinulated error from MediaService .');
-        this.subject$.complete( ) ;
-        this.subject$.next('This message Will not be sent because the subject');
-      });
-
+  public seekAudio(percentage: number): void {
+    const { duration } = this.audio;
+    const seekTime = (percentage /100) * duration ;
+    this.audio.currentTime = seekTime;
+    console.log(`seekingto ${seekTime} seconds (${percentage}%)`);
   }
 }

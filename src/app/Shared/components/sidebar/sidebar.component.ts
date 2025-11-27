@@ -18,16 +18,17 @@ export class SidebarComponent implements OnInit {
 
   customOptions: Array<any> = [];
 
-  currentData$!: Observable <String>;
+  currentData$!: Observable<String>;
   currentMessage$!: Observable<String>;
-  constructor(private tracksService: TracksService,
+
+  constructor(private trackService: TracksService,
     private dataService: DataServiceService,
     private messageService: MessageService
   ) {
-      this.currentData$= this.dataService.currentData;
-      this.currentMessage$= this.messageService.message$;
-
+    this.currentData$ = this.dataService.currentData;
+    this.currentMessage$ = this.messageService.message$;
   }
+
   ngOnInit() {
     this.mainMenu.defaultOptions = [
       {
@@ -44,7 +45,7 @@ export class SidebarComponent implements OnInit {
         name: 'Tu biblioteca',
         icon: 'uil uil-chart',
         router: ['/', 'favorites'],
-        //query: { hola: 'mundo' }
+        query: { hola: 'mundo' }
       }
     ]
 

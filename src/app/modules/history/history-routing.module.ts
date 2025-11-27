@@ -4,11 +4,11 @@ import { HistoryPageComponent } from './pages/history-page/history-page.componen
 
 const routes: Routes = [
   {
-    path:'',
+    path: '',
     component: HistoryPageComponent
-
-  }
-  ,{path: ':texto',
+  },
+  {
+    path: ':texto',
     component: HistoryPageComponent
   }
 ];

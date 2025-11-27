@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./section-generic.component.css']
 })
 export class SectionGenericComponent {
-  @Input() title:string = '';
-  @Input() mode:'small'|'big'='big';
-  @Input() dataTracks: Array<any>=[]
+  @Input() title: string = '';
+  @Input() mode: 'small' | 'big' = 'big';
+  @Input() dataTracks : Array<any> = [];
 }

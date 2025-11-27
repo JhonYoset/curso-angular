@@ -15,7 +15,7 @@ import { SearchComponent } from './components/search/search.component';
   imports: [
     CommonModule,
     HistoryRoutingModule,
-    SharedModule,
+    SharedModule
   ]
 })
 export class HistoryModule { }

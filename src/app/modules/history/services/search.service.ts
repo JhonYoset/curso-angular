@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { environment } from 'src/environment/environment';
+import { map } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +9,13 @@ import { environment } from 'src/environment/environment';
 export class SearchService {
 
   private readonly URL = environment.api;
+
   constructor(private httpClient: HttpClient) { }
 
-  searchTracks(term: string): Observable<any>{
-    return this.httpClient.get(`${this.URL}/tracks?src=${term}`).pipe(
-      map((response:any)=> response.data));
+  searchTracks(term: string) {
+    return this.httpClient.get<any>(`${this.URL}/tracks?term=${term}`)
+      .pipe(
+        map((response: any) => response.data)
+      );
   }
-
 }

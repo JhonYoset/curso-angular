@@ -6,12 +6,14 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent {
-@Output() callbackData: EventEmitter<any> = new EventEmitter<any>();
-src: string='';
+  @Output()
+  callBackData: EventEmitter<any> = new EventEmitter<any>();
+  src: String = '';
 
-callSearch(term: string){
-  if(term.length>=3){
-    this.callbackData.emit(term);
-}
-}
+  callSearch(term: String) {
+    if (term.length >= 3) {
+      this.callBackData.emit(term);
+    }
+  }
+
 }
