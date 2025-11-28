@@ -5,12 +5,17 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AuthService', () => {
   let service: AuthService;
+  //let httpClientSpy: { post: jasmine.Spy };
   let cookieServiceSpy: { set: jasmine.Spy };
 
   beforeEach(() => {
+    //httpClientSpy= jasmine.createSpyObj('HttpClient', ['post']);
+    //cookieServiceSpy= jasmine.createSpyObj('CookieService', ['set']);
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
     });
+    //service = new AuthService(httpClientSpy as any, {} as any);
     service = TestBed.inject(AuthService);
   });
 
