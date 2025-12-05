@@ -11,6 +11,8 @@ import { PlayListBodyComponent } from './components/play-list-body/play-list-bod
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrderListPipe } from './pipes/order-list.pipe';
 import { ImgBrokenDirective } from './directives/img-broken.directive';
+import { LifecycleDemoComponent } from './components/lifecycle-demo/lifecycle-demo.component';
+import { LifecyclechildComponent } from './components/lifecyclechild/lifecyclechild.component';
 
 
 
@@ -24,7 +26,9 @@ import { ImgBrokenDirective } from './directives/img-broken.directive';
     PlayListHeaderComponent,
     PlayListBodyComponent,
     OrderListPipe,
-    ImgBrokenDirective
+    ImgBrokenDirective,
+    LifecycleDemoComponent,
+    LifecyclechildComponent
   ],
   imports: [
     CommonModule,

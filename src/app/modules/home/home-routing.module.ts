@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('../history/history.module').then(m => m.HistoryModule)
   },
   {
+    path: 'orders',
+    loadChildren: () => import('../orders/orders.module').then(m => m.OrdersModule)
+  },
+  {
     path: '**',
     redirectTo: '/tracks'
   }
