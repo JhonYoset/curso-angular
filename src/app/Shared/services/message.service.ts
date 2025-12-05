@@ -6,13 +6,12 @@ import { Subject } from 'rxjs';
 })
 export class MessageService {
 
-  private messageSource: Subject<String> = new Subject<String>();
-  message$ = this.messageSource.asObservable();
+  private messageSource : Subject<string> = new Subject<string>()
+  message$ = this.messageSource.asObservable()
 
   constructor() { }
 
-  sendMessage(message: string) {
+  sendMessage(message : string){
     this.messageSource.next(message);
   }
-
 }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { AuthPageComponent } from './auth-page.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('AuthPageComponent', () => {
@@ -9,7 +10,7 @@ describe('AuthPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[HttpClientTestingModule, FormsModule, ReactiveFormsModule],
+      imports : [HttpClientTestingModule, ReactiveFormsModule],
       declarations: [AuthPageComponent]
     });
     fixture = TestBed.createComponent(AuthPageComponent);
@@ -21,43 +22,31 @@ describe('AuthPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
-
-  it('should return invalid form',() =>{
-    //Arrange
-    const mockcredentials ={
-      email:'eee3#####',
-      password:'1235467888888'
+  it('should return invalid form', () => {
+    const mockCredential = {
+      email : 'eee###F',
+      password : "12345678"
     }
-    const emailFormControl: any = component.formLogin.get('email');
-    const passwordFormControl: any = component.formLogin.get('password');
+    const emailFormControl = component.formLogin.get('email');
+    const passwordFormControl : any = component.formLogin.get('password');
+    
+    emailFormControl?.setValue(mockCredential.email)
+    passwordFormControl?.setValue(mockCredential.password)
 
-
-    //Act
-    emailFormControl.setValue(mockcredentials.email);
-    passwordFormControl.setValue(mockcredentials.password);
-
-    //Assert
-    expect(component.formLogin.invalid).toBeTrue();
-
+    expect(component.formLogin.invalid).toBeTrue()
   });
 
-  // it('should be valid form', () => {
-  //   // Arrange
-  //   const mockCredentials = {
-  //     email: 'test@example.com',
-  //     password: 'ValidPassword123',
-  //   };
+  it('should return valid form', () => {
+    const mockCredential = {
+      email : 'test@example.com',
+      password : "ValidPassword12345"
+    }
+    const emailFormControl = component.formLogin.get('email');
+    const passwordFormControl : any = component.formLogin.get('password');
+    
+    emailFormControl?.setValue(mockCredential.email)
+    passwordFormControl?.setValue(mockCredential.password)
 
-  //   const emailFormControl: any = component.formLogin.get('email');
-  //   const passwordFormControl: any = component.formLogin.get('password');
-
-  //   // Act
-  //   emailFormControl.setValue(mockCredentials.email);
-  //   passwordFormControl.setValue(mockCredentials.password);
-
-  //   // Assert
-  //   expect(component.formLogin.invalid).toBeTrue();
-  // });
-
+    expect(component.formLogin.valid).toBeTrue()
+  });
 });

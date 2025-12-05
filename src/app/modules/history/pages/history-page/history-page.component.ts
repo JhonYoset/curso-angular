@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TrackModel } from '@core/models/track.model';
 import { SearchService } from '@modules/history/services/search.service';
 import { Observable, of } from 'rxjs';
@@ -8,25 +8,18 @@ import { Observable, of } from 'rxjs';
   templateUrl: './history-page.component.html',
   styleUrls: ['./history-page.component.css']
 })
-export class HistoryPageComponent {
+export class HistoryPageComponent implements OnInit{
 
-  // tracks: TrackModel[] = [];
-  tracks: Observable<any> = of([]);
+  tracks : Observable<any> = of([])
+  constructor(private searchService : SearchService){}
 
-  constructor(private searchService: SearchService) {
-
+  ngOnInit() : void{
+    
   }
 
-  ngOnInit(): void {
-
+  search(term : string){
+    this.tracks = this.searchService.searchTracks(term)
   }
 
-  search(term: string) {
-    // this.searchService.searchTracks(term).subscribe((response) => {
-    //   this.tracks = response.data;
-    //   console.log(this.tracks);
-    // });
-    this.tracks = this.searchService.searchTracks(term);
-  }
-
+ 
 }

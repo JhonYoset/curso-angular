@@ -8,46 +8,39 @@ import { Router } from '@angular/router';
   templateUrl: './auth-page.component.html',
   styleUrls: ['./auth-page.component.css']
 })
-export class AuthPageComponent{
+export class AuthPageComponent implements OnInit{
 
-  errorLogin: boolean = false;
+  errorSession : boolean = false
 
-  constructor(private authService: AuthService,
-    private router: Router
-  ) {
-    console.log('AuthPageComponent created');
+  formLogin : FormGroup = new FormGroup({})
+
+  ngOnInit(): void {
+    this.formLogin = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required])
+    });
+  } 
+
+  constructor(private authService : AuthService, private router : Router){
+    authService.sendCredentials("", "")
   }
 
-  formLogin = new FormGroup({
-      email: new FormControl('',
-        [Validators.required,
-        Validators.email]
-      ),
-        password: new FormControl('',
-        [Validators.required,
-        Validators.minLength(6)]
-        )
-    });
-
-  sendLogin() {
+  sendLogin(): void {
     if (this.formLogin.valid) {
-      const { email, password } = this.formLogin.value;
-      this.authService.sendCredentials(email!, password!)
-      .subscribe({
-        next: (response) => {
-          console.log('Login succesful', response);
-          this.router.navigate(['/']);
-          this.errorLogin = false;
-        },
-        error: (error) => {
-          console.log('Login Failed', error);
-          this.errorLogin = true;
-        }
-      });
+      this.authService.sendCredentials(this.formLogin.value.email, this.formLogin.value.password)
+        .subscribe({
+          next : (response) => {
+            console.log('Login Successful', response)
+            this.router.navigate(['/'])
+            this.errorSession = false
+          },
+          error : (error) => {
+            console.log('Login failed', error)
+            this.errorSession = true
+          }
+        })
     } else {
-      this.formLogin.markAllAsTouched();
-      console.log('Form is invalid')
+      console.log('Formulario inválido');
     }
   }
-
 }

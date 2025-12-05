@@ -10,7 +10,7 @@ describe('TracksPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports : [HttpClientTestingModule],
       declarations: [TracksPageComponent, SectionGenericComponent]
     });
     fixture = TestBed.createComponent(TracksPageComponent);

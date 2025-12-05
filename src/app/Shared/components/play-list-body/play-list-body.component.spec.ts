@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayListBodyComponent } from './play-list-body.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { OrderListPipe } from '@shared/pipes/order-list.pipe';
+import { OrderPipePipe } from '@shared/pipes/order-pipe.pipe';
 
 describe('PlayListBodyComponent', () => {
   let component: PlayListBodyComponent;
@@ -10,10 +10,8 @@ describe('PlayListBodyComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [PlayListBodyComponent,
-        OrderListPipe
-      ]
+      imports : [HttpClientTestingModule],
+      declarations: [PlayListBodyComponent, OrderPipePipe]
     });
     fixture = TestBed.createComponent(PlayListBodyComponent);
     component = fixture.componentInstance;

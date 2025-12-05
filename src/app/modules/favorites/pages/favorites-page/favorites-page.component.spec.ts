@@ -4,7 +4,6 @@ import { FavoritesPageComponent } from './favorites-page.component';
 import { PlayListHeaderComponent } from '@shared/components/play-list-header/play-list-header.component';
 import { PlayListBodyComponent } from '@shared/components/play-list-body/play-list-body.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { OrderListPipe } from '@shared/pipes/order-list.pipe';
 
 describe('FavoritesPageComponent', () => {
   let component: FavoritesPageComponent;
@@ -12,13 +11,8 @@ describe('FavoritesPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [FavoritesPageComponent,
-        PlayListHeaderComponent,
-        PlayListBodyComponent,
-        OrderListPipe
-
-      ]
+      imports : [HttpClientTestingModule],
+      declarations: [FavoritesPageComponent, PlayListHeaderComponent, PlayListBodyComponent]
     });
     fixture = TestBed.createComponent(FavoritesPageComponent);
     component = fixture.componentInstance;

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { TracksService } from '@modules/tracks/services/tracks.service';
+import { Component } from '@angular/core';
 import { DataServiceService } from '@shared/services/data-service.service';
 import { MessageService } from '@shared/services/message.service';
 import { Observable } from 'rxjs';
@@ -9,27 +8,17 @@ import { Observable } from 'rxjs';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
-
+export class SidebarComponent {
   mainMenu: {
     defaultOptions: Array<any>,
     accessLink: Array<any>
   } = { defaultOptions: [], accessLink: [] }
-
+ 
   customOptions: Array<any> = [];
 
-  currentData$!: Observable<String>;
-  currentMessage$!: Observable<String>;
+  constructor(){}
 
-  constructor(private trackService: TracksService,
-    private dataService: DataServiceService,
-    private messageService: MessageService
-  ) {
-    this.currentData$ = this.dataService.currentData;
-    this.currentMessage$ = this.messageService.message$;
-  }
-
-  ngOnInit() {
+  ngOnInit() : void{
     this.mainMenu.defaultOptions = [
       {
         name: 'Home',
@@ -48,7 +37,7 @@ export class SidebarComponent implements OnInit {
         query: { hola: 'mundo' }
       }
     ]
-
+ 
     this.mainMenu.accessLink = [
       {
         name: 'Crear lista',
@@ -59,7 +48,7 @@ export class SidebarComponent implements OnInit {
         icon: 'uil-heart-medical'
       }
     ]
-
+ 
     this.customOptions = [
       {
         name: 'Mi lista º1',

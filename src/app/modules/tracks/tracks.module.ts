@@ -2,14 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TracksRoutingModule } from './tracks-routing.module';
-import { TracksPageComponent } from './pages/tracks-page/tracks-page.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '@shared/Shared.module';
 
 
 @NgModule({
-  declarations: [
-    TracksPageComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     TracksRoutingModule,

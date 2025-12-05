@@ -2,41 +2,41 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { MediaService } from '../../services/media.service';
 import { TrackModel } from 'src/app/core/models/track.model';
 import { Subscription } from 'rxjs';
+import { ArtistModel } from '@core/models/artist.model';
 
 @Component({
   selector: 'app-media-player',
   templateUrl: './media-player.component.html',
   styleUrls: ['./media-player.component.css']
 })
-export class MediaPlayerComponent implements OnInit, OnDestroy {
-  @ViewChild('progressBar') progressBar: ElementRef = new ElementRef(null);
-  state: string = 'pause';
-  observerList$: Array<Subscription> = [];
+export class MediaPlayerComponent  implements OnInit, OnDestroy{
 
-  constructor(public mediaService: MediaService) { }
+  @ViewChild('progressBar') progressBar : ElementRef = new ElementRef(null)
+  observerList$ : Array<Subscription> = []
+  state : string = 'pause'
+
+  constructor(public mediaService : MediaService){}
 
   ngOnInit(): void {
     const observer$ = this.mediaService.playStatus$.subscribe(status => {
-        this.state = status;
-        console.log('Play status changed:', status);
-    } );
-    this.observerList$.push(observer$);
+      this.state = status
+    })
+
+    this.observerList$.push(observer$)
   }
 
   ngOnDestroy(): void {
-    console.log('MediaPlayerComponent destroyed, unsubscribing from observables.');
-    this.observerList$.forEach(sub => sub.unsubscribe());
+    this.observerList$.forEach(sub => sub.unsubscribe())
   }
 
-  handlePosition(event: any): void {
-    const { clientX }= event;
-    console.log('Click position X:', clientX);
+  handlePosition(event : any) : void{
+    const {clientX} = event;
     const elNative = this.progressBar.nativeElement as HTMLElement
-    const { x, width } = elNative.getBoundingClientRect();
-    const clickPosition= clientX - x;
-    const percentage = clickPosition * 100 / width;
-    //console.log('Click percentage:', percentage);
-    this.mediaService.seekAudio(percentage);
+    const {x, width} = elNative.getBoundingClientRect()
+    const clickPosition = clientX - x
+    const percentage = clickPosition * 100 / width
+    this.mediaService.seekAudio(percentage)
 
   }
+
 }

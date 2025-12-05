@@ -1,7 +1,7 @@
 <div class="side-bar">
     <div><i class="uil uil-ellipsis-h"></i></div>
     <ul class="side-bar__list list-one">
-        <li [routerLink]="item.router" [queryParams]="item.queryParams" *ngFor="let item of mainMenu.defaultOptions">
+        <li [routerLink]="item.router" [queryParams]="item.query" *ngFor="let item of mainMenu.defaultOptions">
             <div class="list-wrapper-item">
                 <i [ngClass]="['uil',item.icon]"></i>
                 <span class="side-bar__list list-label">{{item.name}}</span>
@@ -24,13 +24,5 @@
                 <span class="side-bar__list list-label">{{item.name}}</span>
             </div>
         </li>
-    </ul>
-    <ul>
-      <li>
-        <p>Dato actual: {{currentData$ | async}}</p>
-      </li>
-      <li>
-        <p>Mensaje actual: {{currentMessage$ | async}}</p>
-      </li>
     </ul>
 </div>

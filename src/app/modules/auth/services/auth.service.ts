@@ -9,25 +9,22 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  private readonly URL = environment.api;
+  private readonly URL = environment.api
 
-  constructor(private httpClient: HttpClient,
-    private cookieService: CookieService
-  ) { }
+  constructor(private httpClient : HttpClient,
+    private cookieService : CookieService) { }
 
-  sendCredentials(email:string, password:string): Observable<any>{
-
+  sendCredentials(email : string, password : string) : Observable<any>{
     const body = {
       email,
       password
-    };
-
-    console.log('Sending credentials', body);
-
+    } 
+    console.log(body)
     return this.httpClient.post<any>(`${this.URL}/auth/login`, body).pipe(
       tap((data) => {
-        this.cookieService.set('token', data.tokenSession,4, '/');
+        this.cookieService.set('token', data.tokenSession, 4, '/')
       })
-    );
+    )
+    
   }
 }

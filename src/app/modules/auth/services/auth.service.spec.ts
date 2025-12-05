@@ -1,23 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './auth.service';
-import * as mockData from '../../../data/user.json';
+import * as mockData from '../../../data/user.json'
 import { of } from 'rxjs';
+
 describe('AuthService', () => {
   let service: AuthService;
-  let mockUser: any = (mockData as any).default;
-  let httpClientSpy: { post: jasmine.Spy };
-  let cookieServiceSpy: { set: jasmine.Spy };
+  let httpClientSpy : {post : jasmine.Spy};
+  let mockUser : any = (mockData as any).default
+  let cookieServiceSpy : {set : jasmine.Spy};
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
-    cookieServiceSpy = jasmine.createSpyObj('CookiseService', ['set']);
+    cookieServiceSpy = jasmine.createSpyObj('CookieService', ['set'])
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [AuthService],
-    });
-
+      imports : [HttpClientTestingModule]
+    })
     service = new AuthService(httpClientSpy as any, cookieServiceSpy as any);
   });
 
@@ -25,20 +24,27 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should send credentials and return a token', (done: DoneFn) => {
-    const user = mockUser.userOk;
+  it('should send credential and return a token', (done : DoneFn) => {
+    //Arrange
+    const user = mockUser.userOk
     const expectedResponse = {
-      tokenSession: 'asdasdasdasd',
-    };
+      tokenSession : 'aaaaaaaaaaaaaacewhteh4eher'
+    }
 
-    httpClientSpy.post.and.returnValue(of(expectedResponse));
+    httpClientSpy.post.and.returnValue(
+      of(expectedResponse)
+    )
+    //Act
 
-    service.sendCredentials(user.email, user.password).subscribe((response) => {
-      const responseProperties = Object.keys(response);
+    service.sendCredentials(user.email, user.password)
+      .subscribe(response => {
+        const responseProperties = Object.keys(response)
 
-      expect(response).toEqual(expectedResponse);
-      expect(responseProperties).toContain('tokenSession');
-      done();
-    });
+        expect(response).toEqual(expectedResponse)
+        expect(responseProperties).toContain('tokenSession')
+        done()
+      })
+    //Assert
+    
   });
 });

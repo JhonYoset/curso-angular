@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
-const checkSession = (): boolean => {
+const checkSession = () : boolean => {
   try {
     const cookieService = inject(CookieService);
     const token = cookieService.check('token');
@@ -15,9 +15,8 @@ const checkSession = (): boolean => {
 export const sessionGuard: CanActivateFn = (route, state) => {
   const isValidSession = checkSession();
   const router = inject(Router);
-  if (!isValidSession) {
-    router.navigate(['/','auth']);
-    console.log('No valid session found, Access denied');
+  if(!isValidSession){  
+    router.navigate(['/', 'auth']);
   }
-  return checkSession();
+  return isValidSession;
 };

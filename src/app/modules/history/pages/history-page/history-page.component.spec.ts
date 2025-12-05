@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HistoryPageComponent } from './history-page.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule } from '@angular/forms';
 import { SearchComponent } from '@modules/history/components/search/search.component';
 import { PlayListBodyComponent } from '@shared/components/play-list-body/play-list-body.component';
-import { OrderListPipe } from '@shared/pipes/order-list.pipe';
-import { FormsModule } from '@angular/forms';
+import { OrderPipePipe } from '@shared/pipes/order-pipe.pipe';
 
 describe('HistoryPageComponent', () => {
   let component: HistoryPageComponent;
@@ -13,12 +13,8 @@ describe('HistoryPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, FormsModule],
-      declarations: [HistoryPageComponent,
-        SearchComponent,
-        PlayListBodyComponent,
-        OrderListPipe
-      ]
+      imports : [HttpClientTestingModule, FormsModule],
+      declarations: [HistoryPageComponent, SearchComponent, PlayListBodyComponent, OrderPipePipe]
     });
     fixture = TestBed.createComponent(HistoryPageComponent);
     component = fixture.componentInstance;

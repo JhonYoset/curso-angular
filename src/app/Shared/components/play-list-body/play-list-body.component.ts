@@ -8,32 +8,29 @@ import { TracksService } from '@modules/tracks/services/tracks.service';
   styleUrls: ['./play-list-body.component.css']
 })
 export class PlayListBodyComponent {
-
-  @Input()
-  tracks: Array<TrackModel> = [];
-
-  optionSort: {
-    property: string | null,
-    order: string
+  
+  @Input() tracks : Array<TrackModel> = []
+  optionsSort : {
+    property : string | null,
+    order : string 
   } = {
-      property: null,
-      order: 'asc'
-    }
-
-  constructor(private trackService: TracksService) { }
-
-  ngOnInit(): void {
-    //  const tracks$ = this.trackService.getAllElectronics$().subscribe(tracks => {
-    //     this.tracks = tracks;
-    //  });
+    property : null,
+    order : "asc"
   }
 
-  changeSort(property: string) {
-    const { order } = this.optionSort;
-    this.optionSort = {
+  constructor(private tracksService : TracksService){}
+
+  ngOnInit() : void{
+    /*const tracks$ = this.tracksService.getAllElectronic$().subscribe(tracks => {
+      this.tracks = tracks
+    })*/
+  }
+
+  changeSort(property : string){
+    const {order} = this.optionsSort
+    this.optionsSort = {
       property,
-      order: (order === 'asc') ? 'desc' : 'asc'
-    };
+      order : (order === "asc") ? "desc" : "asc"
+    }
   }
-
 }

@@ -14,12 +14,12 @@
         </div>
     </div>
 </div>
-
+ 
 <!-- ZONE TEMPLATES -->
-
+ 
 <ng-template #artistZone>
-    <!-- <div class="artist-inside" *ngIf="true"> -->
     <div class="artist-inside" *ngIf="mediaService.trackInfo$ | async as mockCover">
+ 
         <img [src]="mockCover.cover" alt="" class="cover">
         <div class="track-info">
             <h3 class="track-title">{{mockCover.name}}</h3>
@@ -32,38 +32,37 @@
         </div>
     </div>
 </ng-template>
-
+ 
 <ng-template #playerZone>
     <div class="player-controls-inside">
         <div class="buttons-media">
             <button class="arrow btn">
                 <i class="uil uil-previous"></i>
             </button>
-            <button class="play btn" (click)="this.mediaService.togglePlayer()">
-                <!-- <i class="uil uil-play-circle"></i> -->
+            <button (click)="this.mediaService.togglePlayer()" class="play btn">
                 <i [ngClass]="{
-                    'uil-play-circle': state === 'pause',
-                    'uil-pause-circle': state !== 'pause'
-                 }"></i>
-
+                    'uil-play-circle' : state  === 'pause',
+                    'uil-pause-circle' : state  !== 'pause'
+                }">
+                </i>
+ 
             </button>
             <button class="arrow btn">
                 <i class="uil uil-step-forward"></i>
             </button>
         </div>
         <div class="media-linetime">
-
-            <div class="time">{{ mediaService.timeElapsed$ | async }}</div>
+ 
+            <div class="time">{{mediaService.timeElapsed$ | async}}</div>
             <span #progressBar (click)="handlePosition($event)" class="time-progress">
                 <span class="time-progress-live" [style.width]="(mediaService.playerPercentage$ | async) + '%'">
                 </span>
-                <!--<div> {{this.mediaService.playerPercentage$ | async}}</div>-->
             </span>
-            <div class="time">{{ mediaService.timeRemaining$ | async }}</div>
+            <div class="time">{{mediaService.timeRemaining$ | async}}</div>
         </div>
     </div>
 </ng-template>
-
+ 
 <ng-template #playerAudio>
     <div class="player-audio-inside">
         <button class="btn-media">

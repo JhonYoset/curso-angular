@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { TrackModel } from '@core/models/track.model';
 import { MediaService } from '../../services/media.service';
+import { TrackModel } from '@core/models/track.model';
 
 @Component({
   selector: 'app-card-player',
@@ -8,16 +8,12 @@ import { MediaService } from '../../services/media.service';
   styleUrls: ['./card-player.component.css']
 })
 export class CardPlayerComponent {
-  @Input() mode: 'small' | 'big' = 'big';
-  @Input() track!: TrackModel;
+  @Input() mode : 'small' | 'big' = 'big'
+  @Input() track !: TrackModel
 
-  constructor(private mediaService: MediaService) { }
+  constructor(private mediaService : MediaService){}
 
-  ngOnInit() {
-  }
-
-  sendTrack(track: TrackModel) {
+  sendTrack(track : TrackModel){
     this.mediaService.trackInfo$.next(track);
-    console.log('Track sent:', track);
   }
 }

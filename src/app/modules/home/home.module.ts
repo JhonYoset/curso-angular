@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
-import { HomePageComponent } from './pages/home-page/home-page.component';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { HomePageComponent } from 'src/app/modules/home/pages/home-page/home-page.component';
+import { SharedModule } from 'src/app/shared/Shared.module';
+
 
 @NgModule({
   declarations: [
-    HomePageComponent,
+    HomePageComponent
   ],
   imports: [
     CommonModule,

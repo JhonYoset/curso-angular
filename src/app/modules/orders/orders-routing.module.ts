@@ -4,10 +4,9 @@ import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component: OrdersPageComponent
+    path : '',
+    component : OrdersPageComponent
   }
-
 ];
 
 @NgModule({

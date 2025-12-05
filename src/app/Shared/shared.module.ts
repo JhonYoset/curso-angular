@@ -8,13 +8,11 @@ import { CardPlayerComponent } from './components/card-player/card-player.compon
 import { RouterModule } from '@angular/router';
 import { PlayListHeaderComponent } from './components/play-list-header/play-list-header.component';
 import { PlayListBodyComponent } from './components/play-list-body/play-list-body.component';
+import { OrderPipePipe } from './pipes/order-pipe.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OrderListPipe } from './pipes/order-list.pipe';
 import { ImgBrokenDirective } from './directives/img-broken.directive';
 import { LifecycleDemoComponent } from './components/lifecycle-demo/lifecycle-demo.component';
-import { LifecyclechildComponent } from './components/lifecyclechild/lifecyclechild.component';
-
-
+import { LifecycleChildComponent } from './components/lifecycle-child/lifecycle-child.component';
 
 @NgModule({
   declarations: [
@@ -25,18 +23,18 @@ import { LifecyclechildComponent } from './components/lifecyclechild/lifecyclech
     CardPlayerComponent,
     PlayListHeaderComponent,
     PlayListBodyComponent,
-    OrderListPipe,
+    OrderPipePipe,
     ImgBrokenDirective,
     LifecycleDemoComponent,
-    LifecyclechildComponent
+    LifecycleChildComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule
-],
-  exports: [
+  ],
+  exports : [
     SidebarComponent,
     MediaPlayerComponent,
     HeaderUserComponent,

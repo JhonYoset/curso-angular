@@ -1,7 +1,7 @@
 .section--generic {
     margin-bottom: 2rem;
 }
-
+ 
 .section--generic__player--zone .player--list {
     display: grid;
     list-style: none;
@@ -9,11 +9,11 @@
     padding: 0;
     gap: 1.15rem;
 }
-
+ 
 .section--generic__player--zone .player--list.card-small {
     grid-template-columns: repeat(5, 1fr);
 }
-
+ 
 .section--generic__player--zone .player--list.card-big {
     grid-template-columns: repeat(6, minmax(100px, 1fr));
 }

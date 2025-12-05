@@ -1,7 +1,7 @@
 <p>lifecycle-demo works!</p>
-<button (click)="goToTracks()"> Ir a tracks </button>
-<input type="text" [(ngModel)]="inputData" placeholder="Ingrese datos para el hijo"/>
-<a href="/tracks"> ir a tracks</a>
+<button (click)="goToTracks()">ir a tracks</button>
+<input type="text" [(ngModel)]="inputData" placeholder="ingrese datos del hijo">
+<button (click)="updateChildData()">enviar datos al hijo</button>
 <div>
-  <app-lifecyclechild></app-lifecyclechild>
+    <app-lifecycle-child [parentData]="parentData"></app-lifecycle-child>
 </div>
